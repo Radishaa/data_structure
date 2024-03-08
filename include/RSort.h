@@ -43,6 +43,9 @@ public:
     */
     void msort(std::vector<int> &nums, int left, int right);
 
+
+    void heapsort(std::vector<int> &nums);
+
 };
 
 #endif

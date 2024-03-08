@@ -1,4 +1,5 @@
 #include "RSort.h"
+#include "RHeap.h"
 #include <ctime>
 
 RSort::RSort() {}
@@ -15,7 +16,7 @@ void RSort::qsort(std::vector<int> &nums, int left, int right)
 
 void RSort::msort(std::vector<int> &nums, int left, int right)
 {
-    //递归终止条件
+    // 递归终止条件
     if (left >= right)
         return;
 
@@ -23,6 +24,15 @@ void RSort::msort(std::vector<int> &nums, int left, int right)
     msort(nums, left, mid);
     msort(nums, mid + 1, right);
     merge(nums, left, mid, right);
+}
+
+void RSort::heapsort(std::vector<int> &nums)
+{
+    RHeap maxHeap = RHeap(nums, true);
+    for (int i = nums.size() - 1; i >= 0; i--)
+    {
+        nums[i] = maxHeap.pop();
+    }
 }
 
 void RSort::merge(std::vector<int> &nums, int left, int mid, int right)
