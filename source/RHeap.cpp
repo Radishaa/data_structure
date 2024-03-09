@@ -24,11 +24,13 @@ void RHeap::push(int val)
     siftUp(heap.size() - 1, isMaxHeap);
 }
 
-int RHeap::pop()
+void RHeap::pop()
 {
+    // 不需要返回，通过peek()获取堆顶元素即可
     if (heap.empty())
     {
-        return 0;
+        // 未做错误分析
+        return;
     }
     int pop = heap[0];
 
@@ -37,7 +39,6 @@ int RHeap::pop()
     heap.pop_back();
 
     siftDown(0, isMaxHeap);
-    return pop;
 }
 
 void RHeap::siftUp(int i, bool isMaxHeap)

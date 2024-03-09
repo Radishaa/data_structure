@@ -28,10 +28,13 @@ void RSort::msort(std::vector<int> &nums, int left, int right)
 
 void RSort::heapsort(std::vector<int> &nums)
 {
+    // 构造大顶堆
     RHeap maxHeap = RHeap(nums, true);
     for (int i = nums.size() - 1; i >= 0; i--)
     {
-        nums[i] = maxHeap.pop();
+        // 大顶堆先出的是最大的元素
+        nums[i] = maxHeap.peek();
+        maxHeap.pop();
     }
 }
 
