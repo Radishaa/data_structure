@@ -21,8 +21,8 @@ private:
      * @param left 待合并开始位置
      * @param mid 待合并中间数
      * @param right 待合并结束位置
-     * @brief 实现归并排序的合并 
-    */
+     * @brief 实现归并排序的合并
+     */
     void merge(std::vector<int> &nums, int left, int mid, int right);
 
 public:
@@ -38,14 +38,16 @@ public:
     /**
      * @param nums 待排序数组
      * @param left 排序开始位置
-     * @param right 排序结束位置 
+     * @param right 排序结束位置
      * @brief 归并排序
-    */
+     */
     void msort(std::vector<int> &nums, int left, int right);
 
-
+    /**
+     * @param nums 待排序数组
+     * @brief 堆排序
+     */
     void heapsort(std::vector<int> &nums);
-
 };
 
 #endif
