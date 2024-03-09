@@ -48,6 +48,11 @@ public:
      * @brief 堆排序
      */
     void heapsort(std::vector<int> &nums);
+
+    /**
+     * @brief 希尔排序
+     */
+    void shellsort(std::vector<int> &nums);
 };
 
 #endif

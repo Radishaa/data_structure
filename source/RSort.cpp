@@ -38,6 +38,30 @@ void RSort::heapsort(std::vector<int> &nums)
     }
 }
 
+void RSort::shellsort(std::vector<int> &nums)
+{
+    int n = nums.size(), tmp, i, j, d;
+    // d是划分每次插入排序的大小
+    for (d = n / 2; d >= 1; d /= 2)
+    {
+        // i++是顺序遍历一边数组，而不是一个组排序完，下一个组
+        // 而是处理一个组的数后，直接下一个索引处理下一个组（如果有的话）的数
+        for (i = d; i < n; i++)
+        {
+            if (nums[i] < nums[i - d])
+            {
+                tmp = nums[i];
+                // 判断是否还需要往前移动，找到适合插入的位置
+                for (j = i - d; j >= 0 && tmp < nums[j]; j -= d)
+                {
+                    nums[j + d] = nums[j];
+                }
+                nums[j + d] = tmp;
+            }
+        }
+    }
+}
+
 void RSort::merge(std::vector<int> &nums, int left, int mid, int right)
 {
     // 创建一个新的temp数组用于比较两边的数进行归并
@@ -81,7 +105,7 @@ int RSort::partition(std::vector<int> &nums, int left, int right)
     swap(nums, r, left);
     while (i < j)
     {
-        // 必须右端先动！非常重要非常重要
+        // 必须右端先动！非常重要非常重要非常重要
         // 因为右边先判断则判断
         while (i < j && nums[left] <= nums[j])
             j--;
