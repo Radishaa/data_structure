@@ -4,24 +4,21 @@
 
 并且每个类都会已 `R**.*作为名称`，与原本可能c++库存在的进行区分。
 
-
 # 目录结构
 
-| include
+|-- include
 
-    | *.h
+    |-- *.h
 
-| source
+| --source
 
-    | *.cpp
+    | --*.cpp
 
-| .gitignore
+|-- .gitignore
 
-| main.cpp
+|-- main.cpp
 
-| README.md
-
-
+|-- README.md
 
 ## 排序算法
 
