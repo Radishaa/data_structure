@@ -6,12 +6,16 @@
 
 RAVLTree::~RAVLTree() {}
 
+// 以下操作绝大部分是通过递归方式进行实现，需要好好理解
+
 RAVLTree *RAVLTree::insert(RAVLTree *root, int tar)
 {
     if (root == nullptr)
+        // 递归退出条件
         return new RAVLTree(tar);
     if (tar < root->val)
-    {
+    { // 比当前值小，所以需要插入到左孩子中去
+        // 所以将插入修改后的子树变成当前子树
         root->left = insert(root->left, tar);
     }
     else if (tar > root->val)
@@ -19,10 +23,13 @@ RAVLTree *RAVLTree::insert(RAVLTree *root, int tar)
         root->right = insert(root->right, tar);
     }
     else
-    {
+    { // 已经存在则不进行更改
         return root;
     }
+    // 得到插入后的子树后，因为递归的作用，会逐层向上更新高度
     updateHeight(root);
+    // 更新高度后，逐层进行旋转平衡
+    // 虽然进入之后进行判断不需要旋转，但是还是会有函数调用栈的空间浪费。
     root = rotate(root);
     return root;
 }
@@ -30,9 +37,8 @@ RAVLTree *RAVLTree::insert(RAVLTree *root, int tar)
 RAVLTree *RAVLTree::remove(RAVLTree *root, int tar)
 {
     if (root == nullptr)
-    {
+        // 递归退出条件。未找到删除节点
         return nullptr;
-    }
     if (tar < root->val)
         root->left = remove(root->left, tar);
     else if (tar > root->val)
@@ -40,7 +46,7 @@ RAVLTree *RAVLTree::remove(RAVLTree *root, int tar)
     else
     {
         if (root->left == nullptr || root->right == nullptr)
-        {
+        { // 获取是非空的那个节点（如果有）
             RAVLTree *child = root->left != nullptr ? root->left : root->right;
             if (child == nullptr)
             { // 叶子结点，直接删除
@@ -49,6 +55,7 @@ RAVLTree *RAVLTree::remove(RAVLTree *root, int tar)
             }
             else
             { // 有一个孩子，将孩子变成原来节点
+                // 释放原节点，用他的孩子代替他
                 delete root;
                 root = child;
             }
@@ -57,14 +64,15 @@ RAVLTree *RAVLTree::remove(RAVLTree *root, int tar)
         { // 有两个孩子，此处做法是，删除原有节点，将右孩子的最小值替换该节点
             RAVLTree *temp = root->right;
             while (temp->left != nullptr)
-            {
+                // 一直找到最小的那个节点
                 temp = temp->left;
-            }
             int temVal = temp->val;
+            // 替换节点
             root->right = remove(root->right, temVal);
             root->val = temVal;
         }
     }
+    // 同插入逐层更新高度和旋转
     updateHeight(root);
     root = rotate(root);
     return root;
@@ -80,9 +88,8 @@ RAVLTree *RAVLTree::serarch(RAVLTree *root, int tar)
         else if (tar > temp->val)
             temp = temp->right;
         else
-        {
+            // 返回找到的节点
             return temp;
-        }
     }
     std::cout << "Not found!" << std::endl;
     return temp;
