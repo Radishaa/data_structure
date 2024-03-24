@@ -90,15 +90,15 @@ void RHeap::siftDown(int i, bool isMaxHeap)
     {
         while (true)
         {
-            int l = getLeft(i), r = getRight(i), max = i;
-            if (l < heap.size() && heap[l] <= heap[max])
-                max = l;
-            if (r < heap.size() && heap[r] <= heap[max])
-                max = r;
-            if (max == i)
+            int l = getLeft(i), r = getRight(i), min = i;
+            if (l < heap.size() && heap[l] <= heap[min])
+                min = l;
+            if (r < heap.size() && heap[r] <= heap[min])
+                min = r;
+            if (min == i)
                 return;
-            swap(heap, max, i);
-            i = max;
+            swap(heap, min, i);
+            i = min;
         }
     }
 }
